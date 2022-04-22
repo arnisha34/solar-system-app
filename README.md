@@ -1,3 +1,7 @@
+<h1>Solar System App</h1>
+
+![solar-app-preview](https://user-images.githubusercontent.com/970143/164760733-a874a2c9-a8f3-43c5-929f-a98cac2973de.png)
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
