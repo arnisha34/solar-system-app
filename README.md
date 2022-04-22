@@ -1,6 +1,6 @@
 <h1>Solar System App</h1>
-![solar-app-preview](https://user-images.githubusercontent.com/970143/164760530-5020b01c-8254-4468-93a5-ae034b3f8895.png)
 
+![solar-app-preview](https://user-images.githubusercontent.com/970143/164760733-a874a2c9-a8f3-43c5-929f-a98cac2973de.png)
 
 # Getting Started with Create React App
 
