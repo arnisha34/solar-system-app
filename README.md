@@ -1,7 +1,5 @@
 <h1>Solar System App</h1>
-
-<div><img width="1661" alt="Screen Shot 2022-04-22 at 9 42 31 AM" src="https://user-images.githubusercontent.com/970143/164758676-fbcb28a6-0947-489f-9193-de676ed77976.png">
-<img width="1664" alt="Screen Shot 2022-04-22 at 9 44 02 AM" src="https://user-images.githubusercontent.com/970143/164758680-689426f2-502b-4923-9f49-7a73e1b9205e.png"></div>
+![solar-app-preview](https://user-images.githubusercontent.com/970143/164760530-5020b01c-8254-4468-93a5-ae034b3f8895.png)
 
 
 # Getting Started with Create React App
