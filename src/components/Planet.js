@@ -85,6 +85,10 @@ const MobileMenuLink = styled.a`
     font-weight: 800;
     letter-spacing: 2px;
     text-decoration: none;
+
+    &.active{
+        color: #fff;
+    }
     
     &:hover{
         color: #fff;
@@ -421,6 +425,7 @@ const PlanetData = styled.div`
 
     @media screen and (max-width: 1024px){
         margin-top: 0;
+        padding-bottom: 50px;
 
         & > *{
             padding: 5px 0 15px 30px;
@@ -430,7 +435,6 @@ const PlanetData = styled.div`
     @media screen and (max-width: 768px){
         flex-direction: column;
         margin-top: 0;
-        padding-bottom: 50px;
 
         & > *{
             padding: 5px 15px 15px;

@@ -317,101 +317,142 @@ const SideNavLink = styled(Link)`
         height: 25px;
     }
 
+    ::after{
+        content: "";
+        display: inline-block;
+        border-right: 1px solid white;
+        border-bottom: 1px solid white;
+        position: absolute;
+        top: 50%;
+        right: 0;
+        transform: rotate(-45deg) translateY(-50%);
+        width: 8px; height: 8px;
+    }
+
     span{
         margin-left: 10px;
     }
 
     &.mercury{
-        :hover,
-        :hover::after{
+        &.active,
+        :hover{
             color: var(--color-mercury);
         }
         ::before{
             background: url(../images/planet-mercury.svg) no-repeat;
             background-size: contain;
         }
+        &.active::after{
+            content:"";
+            border-right: 2px solid var(--color-mercury);
+            border-bottom: 2px solid var(--color-mercury);
+        }
     }
 
     &.venus{
-        :hover,
-        :hover::after{
+        &.active,
+        :hover{
             color: var(--color-venus);
         }
         ::before{
             background: url(../images/planet-venus.svg) no-repeat;
             background-size: contain;
         }
+        &.active::after{
+            content:"";
+            border-right: 2px solid var(--color-venus);
+            border-bottom: 2px solid var(--color-venus);
+        }
     }
 
     &.earth{
-        :hover,
-        :hover::after{
+        &.active,
+        :hover{
             color: var(--color-earth);
         }
         ::before{
             background: url(../images/planet-earth.svg) no-repeat;
             background-size: contain;
         }
+        &.active::after{
+            content:"";
+            border-right: 2px solid var(--color-earth);
+            border-bottom: 2px solid var(--color-earth);
+        }
     }
     &.mars{
-        :hover,
-        :hover::after{
+        &.active,
+        :hover{
             color: var(--color-mars);
         }
         ::before{
             background: url(../images/planet-mars.svg) no-repeat;
             background-size: contain;
         }
+        &.active::after{
+            content:"";
+            border-right: 2px solid var(--color-mars);
+            border-bottom: 2px solid var(--color-mars);
+        }
     }
     &.jupiter{
-        :hover,
-        :hover::after{
+        &.active,
+        :hover{
             color: var(--color-jupiter);
         }
         ::before{
             background: url(../images/planet-jupiter.svg) no-repeat;
             background-size: contain;
         }
+        &.active::after{
+            content:"";
+            border-right: 2px solid var(--color-jupiter);
+            border-bottom: 2px solid var(--color-jupiter);
+        }
     }
     &.saturn{
-        :hover,
-        :hover::after{
+        &.active,
+        :hover{
             color: var(--color-saturn);
         }
         ::before{
             background: url(../images/planet-saturn.svg) no-repeat;
             background-size: contain;
         }
+        &.active::after{
+            content:"";
+            border-right: 2px solid var(--color-saturn);
+            border-bottom: 2px solid var(--color-saturn);
+        }
     }
     &.uranus{
-        :hover,
-        :hover::after{
+        &.active,
+        :hover{
             color: var(--color-uranus);
         }
         ::before{
             background: url(../images/planet-uranus.svg) no-repeat;
             background-size: contain;
         }
+        &.active::after{
+            content:"";
+            border-right: 2px solid var(--color-uranus);
+            border-bottom: 2px solid var(--color-uranus);
+        }
     }
     &.neptune{
-        :hover,
-        :hover::after{
+        &.active,
+        :hover{
             color: var(--color-neptune);
         }
         ::before{
             background: url(../images/planet-neptune.svg) no-repeat;
             background-size: contain;
         }
-    }
-
-    ::after{
-        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' color='hsl(240, 6%25, 54%25)' style='display: inline-block; stroke: currentcolor; fill: currentcolor; width: 20px; height: 20px; margin-top: 5px;' viewBox='0 0 1024 1024'%3E%3Cpath d='M115.5-30.167l-60.333 60.333 311.167 311.167-311.167 311.167 60.333 60.333 371.5-371.5z'%3E%3C/path%3E%3C/svg%3E");
-        content: '';
-        position: absolute;
-        top: 50%;
-        right: 0;
-        transform: translateY(-50%);
-        width: 20px;
-        height: 20px;
+        &.active::after{
+            content:"";
+            border-right: 2px solid var(--color-neptune);
+            border-bottom: 2px solid var(--color-neptune);
+        }
     }
 `

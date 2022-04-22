@@ -47,7 +47,7 @@ const SolarSystem = styled.div`
   }
 
   @media screen and (max-width: 768px){
-    transform: scale(.7);
+    transform: scale(.9);
   }
 `
 

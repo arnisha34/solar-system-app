@@ -17,6 +17,7 @@
 
 body{
   /* background: url(../public/images/stars-bg.svg) #070525; */
+  background: radial-gradient(ellipse at bottom, #070525  0%, #070525 100%);
   background-size: contain;
   box-sizing: border-box;
   color: #fff;
@@ -36,11 +37,6 @@ body{
   body{
     overflow-x: hidden;
   }
-}
-html {
-  height: 100%;
-  background: radial-gradient(ellipse at bottom, #070525  0%, #070525 100%);
-  overflow: hidden;
 }
 
 #stars {
