@@ -12,16 +12,16 @@ export default function Planet() {
     
     let planet = ctx.planets.find(planet => planet.name.toLowerCase() === name)
 
-    const handleClick = (name) => {
-        ctx.setActiveButton(name)
-    }
+    // const handleClick = (name) => {
+    //     ctx.setActiveButton(name)
+    // }
     
   return (
       <>
         <MobileMenuLinks className="mobile-menu">
-            <MobileMenuLink className={`${planet.name.toLowerCase()} ${ctx.activeButton === "overview" ? "active" : ""}`} onClick={() => handleClick("overview")}><span>Overview</span></MobileMenuLink>
-            <MobileMenuLink className={`${planet.name.toLowerCase()} ${ctx.activeButton === "structure" ? "active" : ""}`} onClick={() => handleClick("structure")}><span>Structure</span></MobileMenuLink>
-            <MobileMenuLink className={`${planet.name.toLowerCase()} ${ctx.activeButton === "geology" ? "active" : ""}`} onClick={() => handleClick("geology")}><span>Surface</span></MobileMenuLink>
+            <MobileMenuLink className={`${planet.name.toLowerCase()} ${ctx.activeButton === "overview" ? "active" : ""}`} onClick={() => ctx.setActiveButton("overview")}><span>Overview</span></MobileMenuLink>
+            <MobileMenuLink className={`${planet.name.toLowerCase()} ${ctx.activeButton === "structure" ? "active" : ""}`} onClick={() => ctx.setActiveButton("structure")}><span>Structure</span></MobileMenuLink>
+            <MobileMenuLink className={`${planet.name.toLowerCase()} ${ctx.activeButton === "geology" ? "active" : ""}`} onClick={() => ctx.setActiveButton("geology")}><span>Surface</span></MobileMenuLink>
         </MobileMenuLinks>
         <PlanetContainer>
             <PlanetDetails className='planet-details'>
@@ -35,9 +35,9 @@ export default function Planet() {
                         <PlanetSource>Source: <a href={`${ctx.activeButton === "overview" ? planet.overview.source : ctx.activeButton === "structure" ? planet.structure.source : ctx.activeButton === "geology" ? planet.geology.source : ""}`} target="_blank" rel="noreferrer">Wikipedia</a> <img src="../images/icon-source.svg" alt="source"/></PlanetSource>
                     </div>
                     <PlanetButtonsContainer className='planet-button-container'>
-                        <button className={`${planet.name.toLowerCase()} ${ctx.activeButton === "overview" ? "active" : ""}`} onClick={() => handleClick("overview")}>01 <span>Overview</span></button>
-                        <button className={`${planet.name.toLowerCase()} ${ctx.activeButton === "structure" ? "active" : ""}`} onClick={() => handleClick("structure")}>02 <span>Internal Structure</span></button>
-                        <button className={`${planet.name.toLowerCase()} ${ctx.activeButton === "geology" ? "active" : ""}`} onClick={() => handleClick("geology")}>03 <span>Surface Geology</span></button>
+                        <button className={`${planet.name.toLowerCase()} ${ctx.activeButton === "overview" ? "active" : ""}`} onClick={() => ctx.setActiveButton("overview")}>01 <span>Overview</span></button>
+                        <button className={`${planet.name.toLowerCase()} ${ctx.activeButton === "structure" ? "active" : ""}`} onClick={() => ctx.setActiveButton("structure")}>02 <span>Internal Structure</span></button>
+                        <button className={`${planet.name.toLowerCase()} ${ctx.activeButton === "geology" ? "active" : ""}`} onClick={() => ctx.setActiveButton("overview")}>03 <span>Surface Geology</span></button>
                     </PlanetButtonsContainer>
                 </PlanetOverview>
             </PlanetDetails>
@@ -124,61 +124,61 @@ const MobileMenuLink = styled.a`
        &:hover::after{
             border-bottom: 4px solid var(--color-earth);
         }
-       &.active span{
+        &.active span{
             padding-bottom: 16px;
             border-bottom: 4px solid var(--color-earth);
         }
    }
 
-   &.mars:hover{
-       &::after{
+    &.mars{
+        &:hover::after{
            border-bottom: 4px solid var(--color-mars);
-       }
-       &.active span{
-           padding-bottom: 16px;
-           border-bottom: 4px solid var(--color-mars);
-       }
-   }
+        }
+        &.active span{
+            padding-bottom: 16px;
+            border-bottom: 4px solid var(--color-mars);
+        }
+    }
 
-   &.jupiter:hover{
-       &::after{
+    &.jupiter{
+       &:hover::after{
             border-bottom: 4px solid var(--color-jupiter);
         }
        &.active span{
             padding-bottom: 16px;
             border-bottom: 4px solid var(--color-jupiter);
         }
-   }
+    }
 
-   &.saturn:hover{
-       &::after{
+    &.saturn{
+        &:hover::after{
            border-bottom: 4px solid var(--color-saturn);
-       }
-       &.active span{
-           padding-bottom: 16px;
-           border-bottom: 4px solid var(--color-saturn);
-       }
-   }
+        }
+        &.active span{
+            padding-bottom: 16px;
+            border-bottom: 4px solid var(--color-saturn);
+        }
+    }
 
-   &.uranus:hover{
-       &::after{
+    &.uranus{
+        &:hover::after{
            border-bottom: 4px solid var(--color-uranus);
-       }
-       &.active span{
-           padding-bottom: 16px;
-           border-bottom: 4px solid var(--color-uranus);
-       }
-   }
+        }
+        &.active span{
+            padding-bottom: 16px;
+            border-bottom: 4px solid var(--color-uranus);
+        }
+    }
 
-   &.neptune:hover{
-       &::after{
+    &.neptune{
+        &:hover::after{
            border-bottom: 4px solid var(--color-neptune);
-       }
-       &.active span{
-           padding-bottom: 16px;
-           border-bottom: 4px solid var(--color-neptune);
-       }
-   }
+        }
+        &.active span{
+            padding-bottom: 16px;
+            border-bottom: 4px solid var(--color-neptune);
+        }
+    }
 `
 
 const PlanetContainer = styled.div`
