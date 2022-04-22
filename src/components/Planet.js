@@ -75,6 +75,7 @@ const MobileMenuLinks = styled.div`
 
     @media screen and (max-width: 768px){
         display: flex;
+        justify-content: space-between;
     }
 `
 
