@@ -37,7 +37,7 @@ export default function Planet() {
                     <PlanetButtonsContainer className='planet-button-container'>
                         <button className={`${planet.name.toLowerCase()} ${ctx.activeButton === "overview" ? "active" : ""}`} onClick={() => ctx.setActiveButton("overview")}>01 <span>Overview</span></button>
                         <button className={`${planet.name.toLowerCase()} ${ctx.activeButton === "structure" ? "active" : ""}`} onClick={() => ctx.setActiveButton("structure")}>02 <span>Internal Structure</span></button>
-                        <button className={`${planet.name.toLowerCase()} ${ctx.activeButton === "geology" ? "active" : ""}`} onClick={() => ctx.setActiveButton("overview")}>03 <span>Surface Geology</span></button>
+                        <button className={`${planet.name.toLowerCase()} ${ctx.activeButton === "geology" ? "active" : ""}`} onClick={() => ctx.setActiveButton("geology")}>03 <span>Surface Geology</span></button>
                     </PlanetButtonsContainer>
                 </PlanetOverview>
             </PlanetDetails>
