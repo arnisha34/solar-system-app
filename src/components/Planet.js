@@ -1,5 +1,5 @@
-import React, { useContext, useEffect, useState } from 'react'
-import { Link, useParams } from 'react-router-dom'
+import React, { useContext } from 'react'
+import { useParams } from 'react-router-dom'
 import styled from 'styled-components'
 import { Context } from './Context';
 
@@ -7,49 +7,37 @@ import { Context } from './Context';
 export default function Planet() {
 
     const ctx = useContext(Context)
-
-    
-    const [activeButton, setActiveButton] = useState("overview")
     
     const { name } = useParams()
     
     let planet = ctx.planets.find(planet => planet.name.toLowerCase() === name)
-    
-    useEffect(() => {
-        localStorage.setItem("data", JSON.stringify(planet))
-        let data = localStorage.getItem("data")
-    
-        if(data){
-          localStorage.getItem("data", JSON.parse(data))
-        }
-    })
 
     const handleClick = (name) => {
-        setActiveButton(name)
+        ctx.setActiveButton(name)
     }
     
   return (
       <>
         <MobileMenuLinks className="mobile-menu">
-            <MobileMenuLink className={`${planet.name.toLowerCase()} ${activeButton === "overview" ? "active" : ""}`} onClick={() => handleClick("overview")}><span>Overview</span></MobileMenuLink>
-            <MobileMenuLink className={`${planet.name.toLowerCase()} ${activeButton === "structure" ? "active" : ""}`} onClick={() => handleClick("structure")}><span>Structure</span></MobileMenuLink>
-            <MobileMenuLink className={`${planet.name.toLowerCase()} ${activeButton === "geology" ? "active" : ""}`} onClick={() => handleClick("geology")}><span>Surface</span></MobileMenuLink>
+            <MobileMenuLink className={`${planet.name.toLowerCase()} ${ctx.activeButton === "overview" ? "active" : ""}`} onClick={() => handleClick("overview")}><span>Overview</span></MobileMenuLink>
+            <MobileMenuLink className={`${planet.name.toLowerCase()} ${ctx.activeButton === "structure" ? "active" : ""}`} onClick={() => handleClick("structure")}><span>Structure</span></MobileMenuLink>
+            <MobileMenuLink className={`${planet.name.toLowerCase()} ${ctx.activeButton === "geology" ? "active" : ""}`} onClick={() => handleClick("geology")}><span>Surface</span></MobileMenuLink>
         </MobileMenuLinks>
         <PlanetContainer>
             <PlanetDetails className='planet-details'>
                 <PlanetImage className='planet-image animate__animated animate__zoomInUp'>
-                    {activeButton === "overview" ? <img src={`.${planet.images.overview}`} alt="overview" /> : activeButton === "structure" ? <img src={`.${planet.images.structure}`} alt="structure" /> : activeButton === "geology" ? <><img src={`.${planet.images.overview}`} alt="overview" /><img className={`${planet.name.toLowerCase()} geology-img`} src={`.${planet.images.geology}`} alt="geology" /></>: "" }
+                    {ctx.activeButton === "overview" ? <img src={`.${planet.images.overview}`} alt="overview" /> : ctx.activeButton === "structure" ? <img src={`.${planet.images.structure}`} alt="structure" /> : ctx.activeButton === "geology" ? <><img src={`.${planet.images.overview}`} alt="overview" /><img className={`${planet.name.toLowerCase()} geology-img`} src={`.${planet.images.geology}`} alt="geology" /></>: "" }
                 </PlanetImage>
                 <PlanetOverview className='planet-overview animate__animated animate__bounceInRight'>
                     <div className="planet-text">
                         <PlanetTitle>{planet.name}</PlanetTitle>
-                        <PlanetDescription>{activeButton === "overview" ? planet.overview.content : activeButton === "structure" ? planet.structure.content : activeButton === "geology" ? planet.geology.content : "" }</PlanetDescription>
-                        <PlanetSource>Source: <a href={`${activeButton === "overview" ? planet.overview.source : activeButton === "structure" ? planet.structure.source : activeButton === "geology" ? planet.geology.source : ""}`} target="_blank" rel="noreferrer">Wikipedia</a> <img src="../images/icon-source.svg" alt="source"/></PlanetSource>
+                        <PlanetDescription>{ctx.activeButton === "overview" ? planet.overview.content : ctx.activeButton === "structure" ? planet.structure.content : ctx.activeButton === "geology" ? planet.geology.content : "" }</PlanetDescription>
+                        <PlanetSource>Source: <a href={`${ctx.activeButton === "overview" ? planet.overview.source : ctx.activeButton === "structure" ? planet.structure.source : ctx.activeButton === "geology" ? planet.geology.source : ""}`} target="_blank" rel="noreferrer">Wikipedia</a> <img src="../images/icon-source.svg" alt="source"/></PlanetSource>
                     </div>
                     <PlanetButtonsContainer className='planet-button-container'>
-                        <button className={`${planet.name.toLowerCase()} ${activeButton === "overview" ? "active" : ""}`} onClick={() => handleClick("overview")}>01 <span>Overview</span></button>
-                        <button className={`${planet.name.toLowerCase()} ${activeButton === "structure" ? "active" : ""}`} onClick={() => handleClick("structure")}>02 <span>Internal Structure</span></button>
-                        <button className={`${planet.name.toLowerCase()} ${activeButton === "geology" ? "active" : ""}`} onClick={() => handleClick("geology")}>03 <span>Surface Geology</span></button>
+                        <button className={`${planet.name.toLowerCase()} ${ctx.activeButton === "overview" ? "active" : ""}`} onClick={() => handleClick("overview")}>01 <span>Overview</span></button>
+                        <button className={`${planet.name.toLowerCase()} ${ctx.activeButton === "structure" ? "active" : ""}`} onClick={() => handleClick("structure")}>02 <span>Internal Structure</span></button>
+                        <button className={`${planet.name.toLowerCase()} ${ctx.activeButton === "geology" ? "active" : ""}`} onClick={() => handleClick("geology")}>03 <span>Surface Geology</span></button>
                     </PlanetButtonsContainer>
                 </PlanetOverview>
             </PlanetDetails>
@@ -323,7 +311,7 @@ const PlanetDescription = styled.p`
     }
 `
 
-const PlanetSource = styled.a`
+const PlanetSource = styled.div`
     font-size: 1.15rem;
     color: rgba(255,255,255,0.5);
     display: flex;

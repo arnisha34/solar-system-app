@@ -22,6 +22,7 @@ body{
   color: #fff;
   font-family: "League Spartan", sans-serif;
   margin: 0;
+  padding: 0;
   width: 100vw;
   height: 100vh;
 }
@@ -52,7 +53,6 @@ html {
 #stars:after {
   content: " ";
   position: absolute;
-  top: 2000px;
   width: 1px;
   height: 1px;
   background: transparent;
@@ -69,7 +69,6 @@ html {
 #stars2:after {
   content: " ";
   position: absolute;
-  top: 2000px;
   width: 2px;
   height: 2px;
   background: transparent;
@@ -86,7 +85,6 @@ html {
 #stars3:after {
   content: " ";
   position: absolute;
-  top: 2000px;
   width: 3px;
   height: 3px;
   background: transparent;
@@ -100,6 +98,12 @@ html {
   to {
     transform: translateY(-2000px);
   }
+}
+
+#stars,
+#stars2,
+#stars3{
+height: 0;
 }
 
 @media screen and (max-width: 768px){

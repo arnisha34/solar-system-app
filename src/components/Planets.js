@@ -15,7 +15,6 @@ export default function Planets() {
           <img src="../images/sun.png" className='sun' alt="sun"/>
         </Sun>
         {ctx.planets.map((planet, id) => <StyledOrbitLink key={id} to={`/planet/${planet.name.toLowerCase()}`} className={`${planet.name.toLowerCase()} ${planet.name.toLowerCase() === ctx.isActive.toLowerCase() ? "active" : ""}`} onClick={() => {ctx.activeLink(planet.name.toLowerCase()); ctx.setActiveButton("overview")}}></StyledOrbitLink>)}
-        {/* <StarCluster></StarCluster> */}
       </SolarSystem>
     </SolarSystemContainer>
   )
@@ -38,9 +37,17 @@ const SolarSystem = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  transform: rotate(90deg);
+  transform: scale(1.5);
   & a:hover{
     cursor: pointer;
+  }
+
+  @media screen and (max-width: 1024px){
+    transform: scale(1.2);
+  }
+
+  @media screen and (max-width: 768px){
+    transform: scale(.7);
   }
 `
 
