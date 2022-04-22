@@ -29,6 +29,9 @@ function App() {
   return (
     <Context.Provider value={{planets, setPlanets, isActive, setIsActive, toggleMenu, setToggleMenu, activeButton, setActiveButton, activeLink}}>
       <div className="App">
+      <div id="stars"></div>
+      <div id="stars2"></div>
+      <div id="stars3"></div>
         <Header/>
         <Routes>
           <Route path="/" exact element={<Planets/>}/>
