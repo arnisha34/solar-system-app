@@ -1,6 +1,80 @@
-import React, { useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import styled from 'styled-components'
+import { Context } from './Context';
+
+
+export default function Planet() {
+
+    const ctx = useContext(Context)
+
+    
+    const [activeButton, setActiveButton] = useState("overview")
+    
+    const { name } = useParams()
+    
+    let planet = ctx.planets.find(planet => planet.name.toLowerCase() === name)
+    
+    useEffect(() => {
+        localStorage.setItem("data", JSON.stringify(planet))
+        let data = localStorage.getItem("data")
+    
+        if(data){
+          localStorage.getItem("data", JSON.parse(data))
+        }
+    })
+
+    const handleClick = (name) => {
+        setActiveButton(name)
+    }
+    
+  return (
+      <>
+        <MobileMenuLinks className="mobile-menu">
+            <MobileMenuLink className={`${planet.name.toLowerCase()} ${activeButton === "overview" ? "active" : ""}`} onClick={() => handleClick("overview")}><span>Overview</span></MobileMenuLink>
+            <MobileMenuLink className={`${planet.name.toLowerCase()} ${activeButton === "structure" ? "active" : ""}`} onClick={() => handleClick("structure")}><span>Structure</span></MobileMenuLink>
+            <MobileMenuLink className={`${planet.name.toLowerCase()} ${activeButton === "geology" ? "active" : ""}`} onClick={() => handleClick("geology")}><span>Surface</span></MobileMenuLink>
+        </MobileMenuLinks>
+        <PlanetContainer>
+            <PlanetDetails className='planet-details'>
+                <PlanetImage className='planet-image animate__animated animate__zoomInUp'>
+                    {activeButton === "overview" ? <img src={`.${planet.images.overview}`} alt="overview" /> : activeButton === "structure" ? <img src={`.${planet.images.structure}`} alt="structure" /> : activeButton === "geology" ? <><img src={`.${planet.images.overview}`} alt="overview" /><img className={`${planet.name.toLowerCase()} geology-img`} src={`.${planet.images.geology}`} alt="geology" /></>: "" }
+                </PlanetImage>
+                <PlanetOverview className='planet-overview animate__animated animate__bounceInRight'>
+                    <div className="planet-text">
+                        <PlanetTitle>{planet.name}</PlanetTitle>
+                        <PlanetDescription>{activeButton === "overview" ? planet.overview.content : activeButton === "structure" ? planet.structure.content : activeButton === "geology" ? planet.geology.content : "" }</PlanetDescription>
+                        <PlanetSource>Source: <a href={`${activeButton === "overview" ? planet.overview.source : activeButton === "structure" ? planet.structure.source : activeButton === "geology" ? planet.geology.source : ""}`} target="_blank" rel="noreferrer">Wikipedia</a> <img src="../images/icon-source.svg" alt="source"/></PlanetSource>
+                    </div>
+                    <PlanetButtonsContainer className='planet-button-container'>
+                        <button className={`${planet.name.toLowerCase()} ${activeButton === "overview" ? "active" : ""}`} onClick={() => handleClick("overview")}>01 <span>Overview</span></button>
+                        <button className={`${planet.name.toLowerCase()} ${activeButton === "structure" ? "active" : ""}`} onClick={() => handleClick("structure")}>02 <span>Internal Structure</span></button>
+                        <button className={`${planet.name.toLowerCase()} ${activeButton === "geology" ? "active" : ""}`} onClick={() => handleClick("geology")}>03 <span>Surface Geology</span></button>
+                    </PlanetButtonsContainer>
+                </PlanetOverview>
+            </PlanetDetails>
+            <PlanetData>
+                <Rotation className='animate__animated animate__slideInUp'>
+                    <p className='title'>Rotation Time</p>
+                    <p className='numbers'>{planet.rotation}</p>
+                </Rotation>
+                <Revolution className='animate__animated animate__slideInUp'>
+                    <p className='title'>Revolution Time</p>
+                    <p className='numbers'>{planet.revolution}</p>
+                </Revolution>
+                <Radius className='animate__animated animate__slideInUp'>
+                    <p className='title'>Radius</p>
+                    <p className='numbers'>{planet.radius}</p>
+                </Radius>
+                <AverageTemp className='animate__animated animate__slideInUp'>
+                    <p className='title'>Average Temp.</p>
+                    <p className='numbers'>{planet.temperature}</p>
+                </AverageTemp>
+            </PlanetData>
+        </PlanetContainer>
+      </>
+  )
+}
 
 const MobileMenuLinks = styled.div`
     border-bottom: 1px solid hsl(240,17%,26%);
@@ -249,7 +323,7 @@ const PlanetDescription = styled.p`
     }
 `
 
-const PlanetSource = styled.p`
+const PlanetSource = styled.a`
     font-size: 1.15rem;
     color: rgba(255,255,255,0.5);
     display: flex;
@@ -512,95 +586,3 @@ const AverageTemp = styled.div`
         }
     }
 `
-
-const MobileLink = styled(Link)`
-    color: rgba(255,255,255,0.5);
-    font-size: 0.875rem;
-    font-weight: 800;
-    letter-spacing: 2px;
-    text-decoration: none;
-
-    &:hover{
-        color: #fff;
-        cursor: pointer;
-        position: relative;
-        
-        &::after{
-            content: "";
-            position: absolute;
-            left: 50%;
-            bottom: -20px;
-            transform: translateX(-50%);
-            width: 100%;
-        }
-    }
-
-    &.overview-menu-item:hover::after,
-    &.overview-menu-item.active,
-    &.structure-menu-item:hover::after,
-    &.structure-menu-item.active,
-    &.surface-menu-item:hover::after,
-    &.surface-menu-item.active{
-        border-bottom: 2px solid blue;
-    }
-`
-
-export default function Planet({planets}) {
-
-    const [activeButton, setActiveButton] = useState("overview")
-
-    const { name } = useParams()
-
-    let planet = planets.find(planet => planet.name.toLowerCase() === name)
-
-    const handleClick = (name) => {
-        setActiveButton(name)
-    }
-    
-  return (
-      <>
-        <MobileMenuLinks className="mobile-menu">
-            <MobileMenuLink className={`${planet.name.toLowerCase()} ${activeButton === "overview" ? "active" : ""}`} onClick={() => handleClick("overview")}><span>Overview</span></MobileMenuLink>
-            <MobileMenuLink className={`${planet.name.toLowerCase()} ${activeButton === "structure" ? "active" : ""}`} onClick={() => handleClick("structure")}><span>Structure</span></MobileMenuLink>
-            <MobileMenuLink className={`${planet.name.toLowerCase()} ${activeButton === "geology" ? "active" : ""}`} onClick={() => handleClick("geology")}><span>Surface</span></MobileMenuLink>
-        </MobileMenuLinks>
-        <PlanetContainer>
-            <PlanetDetails className='planet-details'>
-                <PlanetImage className='planet-image animate__animated animate__zoomInUp'>
-                    {activeButton === "overview" ? <img src={`.${planet.images.overview}`} alt="overview" /> : activeButton === "structure" ? <img src={`.${planet.images.structure}`} alt="structure" /> : activeButton === "geology" ? <><img src={`.${planet.images.overview}`} alt="overview" /><img className={`${planet.name.toLowerCase()} geology-img`} src={`.${planet.images.geology}`} alt="geology" /></>: "" }
-                </PlanetImage>
-                <PlanetOverview className='planet-overview animate__animated animate__bounceInRight'>
-                    <div className="planet-text">
-                        <PlanetTitle>{planet.name}</PlanetTitle>
-                        <PlanetDescription>{activeButton === "overview" ? planet.overview.content : activeButton === "structure" ? planet.structure.content : activeButton === "geology" ? planet.geology.content : "" }</PlanetDescription>
-                        <PlanetSource>Source: <Link to={activeButton === "overview" ? planet.overview.source : activeButton === "structure" ? planet.structure.source : activeButton === "geology" ? planet.geology.source : "" } target="_blank">Wikipedia</Link> <img src="../images/icon-source.svg" alt="source"/></PlanetSource>
-                    </div>
-                    <PlanetButtonsContainer className='planet-button-container'>
-                        <button className={`${planet.name.toLowerCase()} ${activeButton === "overview" ? "active" : ""}`} onClick={() => handleClick("overview")}>01 <span>Overview</span></button>
-                        <button className={`${planet.name.toLowerCase()} ${activeButton === "structure" ? "active" : ""}`} onClick={() => handleClick("structure")}>02 <span>Internal Structure</span></button>
-                        <button className={`${planet.name.toLowerCase()} ${activeButton === "geology" ? "active" : ""}`} onClick={() => handleClick("geology")}>03 <span>Surface Geology</span></button>
-                    </PlanetButtonsContainer>
-                </PlanetOverview>
-            </PlanetDetails>
-            <PlanetData>
-                <Rotation className='animate__animated animate__slideInUp'>
-                    <p className='title'>Rotation Time</p>
-                    <p className='numbers'>{planet.rotation}</p>
-                </Rotation>
-                <Revolution className='animate__animated animate__slideInUp'>
-                    <p className='title'>Revolution Time</p>
-                    <p className='numbers'>{planet.revolution}</p>
-                </Revolution>
-                <Radius className='animate__animated animate__slideInUp'>
-                    <p className='title'>Radius</p>
-                    <p className='numbers'>{planet.radius}</p>
-                </Radius>
-                <AverageTemp className='animate__animated animate__slideInUp'>
-                    <p className='title'>Average Temp.</p>
-                    <p className='numbers'>{planet.temperature}</p>
-                </AverageTemp>
-            </PlanetData>
-        </PlanetContainer>
-      </>
-  )
-}

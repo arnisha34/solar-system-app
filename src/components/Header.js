@@ -1,7 +1,36 @@
-import React, { useState } from 'react'
+import React, { useContext } from 'react'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import 'animate.css';
+import { Context } from './Context';
+
+export default function Header() {
+
+    const ctx = useContext(Context)
+    
+    const handleClick = () => {
+        ctx.setToggleMenu(!ctx.toggleMenu)
+    }
+
+    return (
+        <MobileWrapper className='mobile-wrapper'>
+            <NavbarContainer className='navbar-container'>
+                <Navbar>
+                    <NavLogo>
+                        <StyledLink to="/" onClick={() => {ctx.setIsActive(""); ctx.etToggleMenu(false)}}>The Planets</StyledLink>
+                        <HamburgerMenu className={`mobile-menu ${ctx.toggleMenu === true ? "toggle" : "closed"}`} onClick={handleClick}><span></span></HamburgerMenu>
+                    </NavLogo>
+                    <LinkContainer className='desktop-menu'>
+                        {ctx.planets.map((planet, id) => <StyledLink key={id} to={`/planet/${planet.name.toLowerCase()}`} className={`${planet.name.toLowerCase()} ${planet.name.toLowerCase() === ctx.isActive.toLowerCase() ? "active" : ""}`} onClick={() => {ctx.activeLink(planet.name.toLowerCase()); ctx.setActiveButton("overview")}}><span>{planet.name}</span></StyledLink>)}
+                    </LinkContainer>
+                </Navbar>
+            </NavbarContainer>
+            <MobileSideNav className={`mobile-menu ${ctx.toggleMenu === true ? "active animate__animated animate__slideInRight animate__fast" : "closed animate__animated animate__fadeOut"}`}>
+                {ctx.planets.map((planet, id) => <SideNavLink key={id} to={`/planet/${planet.name.toLowerCase()}`} className={`${planet.name.toLowerCase()} ${planet.name.toLowerCase() === ctx.isActive.toLowerCase() ? "active" : ""}`} onClick={() => {ctx.activeLink(planet.name.toLowerCase()); ctx.setToggleMenu(false); ctx.setActiveButton("overview")}}><span>{planet.name}</span></SideNavLink>)}
+            </MobileSideNav>
+        </MobileWrapper>
+    )
+}
 
 const NavbarContainer = styled.div`
     border-bottom: 1px solid hsl(240,17%,26%);
@@ -386,29 +415,3 @@ const SideNavLink = styled(Link)`
         height: 20px;
     }
 `
-
-export default function Header({planets, isActive, setIsActive, activeLink, toggleMenu, setToggleMenu, setActiveButton}) {
-    
-    const handleClick = () => {
-        setToggleMenu(!toggleMenu)
-    }
-
-    return (
-        <MobileWrapper className='mobile-wrapper'>
-            <NavbarContainer className='navbar-container'>
-                <Navbar>
-                    <NavLogo>
-                        <StyledLink to="/" onClick={() => {setIsActive(""); setToggleMenu(false)}}>The Planets</StyledLink>
-                        <HamburgerMenu className={`mobile-menu ${toggleMenu === true ? "toggle" : "closed"}`} onClick={handleClick}><span></span></HamburgerMenu>
-                    </NavLogo>
-                    <LinkContainer className='desktop-menu'>
-                        {planets.map((planet, id) => <StyledLink key={id} to={`/planet/${planet.name.toLowerCase()}`} className={`${planet.name.toLowerCase()} ${planet.name.toLowerCase() === isActive.toLowerCase() ? "active" : ""}`} onClick={() => {activeLink(planet.name.toLowerCase()); setActiveButton("overview")}}><span>{planet.name}</span></StyledLink>)}
-                    </LinkContainer>
-                </Navbar>
-            </NavbarContainer>
-            <MobileSideNav className={`mobile-menu ${toggleMenu === true ? "active animate__animated animate__slideInRight animate__fast" : "closed animate__animated animate__fadeOut"}`}>
-                {planets.map((planet, id) => <SideNavLink key={id} to={`/planet/${planet.name.toLowerCase()}`} className={`${planet.name.toLowerCase()} ${planet.name.toLowerCase() === isActive.toLowerCase() ? "active" : ""}`} onClick={() => {activeLink(planet.name.toLowerCase()); setToggleMenu(false); setActiveButton("overview")}}><span>{planet.name}</span></SideNavLink>)}
-            </MobileSideNav>
-        </MobileWrapper>
-    )
-}

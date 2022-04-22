@@ -6,14 +6,17 @@ import Planet from './components/Planet';
 
 import { planetData } from './planetData';
 
-function App() {
+import { Context } from './components/Context';
 
+
+function App() {
+  
   const [planets, setPlanets] = useState([])
   const [isActive, setIsActive] = useState("")
   const [toggleMenu, setToggleMenu] = useState(false)
   const [activeButton, setActiveButton] = useState("overview")
-
-
+  
+  
   useEffect(() => {
     let planet = planetData.map(planet => planet)
     setPlanets(planet)
@@ -24,13 +27,15 @@ function App() {
 }
 
   return (
-    <div className="App">
-      <Header planets={planets} isActive={isActive} setIsActive={setIsActive} activeLink={activeLink} toggleMenu={toggleMenu} setToggleMenu={setToggleMenu} setActiveButton={setActiveButton}/>
-      <Routes>
-        <Route path="/" exact element={<Planets planets={planets} isActive={isActive} activeLink={activeLink} toggleMenu={toggleMenu} setActiveButton={setActiveButton}/>}/>
-        <Route path="planet/:name" element={<Planet planets={planets} isActive={isActive} setIsActive={setIsActive} activeLink={activeLink} toggleMenu={toggleMenu} activeButton={activeButton} setActiveButton={setActiveButton}/>}/>
-      </Routes>
-    </div>
+    <Context.Provider value={{planets, setPlanets, isActive, setIsActive, toggleMenu, setToggleMenu, activeButton, setActiveButton, activeLink}}>
+      <div className="App">
+        <Header/>
+        <Routes>
+          <Route path="/" exact element={<Planets/>}/>
+          <Route path="planet/:name" element={<Planet/>}/>
+        </Routes>
+      </div>
+    </Context.Provider>
   );
 }
 

@@ -1,5 +1,25 @@
+import { useContext } from 'react'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
+import { Context } from './Context';
+
+
+export default function Planets() {
+
+  const ctx = useContext(Context)
+
+  return (
+    <SolarSystemContainer className={`solar-system-container ${ctx.toggleMenu === true ? "animate__animated animate__fadeOut" : ""}`}>
+      <SolarSystem className='animate__animated animate__zoomIn animate__slow'>
+        <Sun>
+          <img src="../images/sun.png" className='sun' alt="sun"/>
+        </Sun>
+        {ctx.planets.map((planet, id) => <StyledOrbitLink key={id} to={`/planet/${planet.name.toLowerCase()}`} className={`${planet.name.toLowerCase()} ${planet.name.toLowerCase() === ctx.isActive.toLowerCase() ? "active" : ""}`} onClick={() => {ctx.activeLink(planet.name.toLowerCase()); ctx.setActiveButton("overview")}}></StyledOrbitLink>)}
+        {/* <StarCluster></StarCluster> */}
+      </SolarSystem>
+    </SolarSystemContainer>
+  )
+}
 
 const SolarSystemContainer = styled.div`
   box-sizing: border-box;
@@ -313,19 +333,3 @@ const StyledOrbitLink = styled(Link)`
       }
     }
 `
-
-
-export default function Planets({planets, isActive, activeLink, toggleMenu,setActiveButton}) {
-
-  return (
-    <SolarSystemContainer className={`solar-system-container ${toggleMenu === true ? "animate__animated animate__fadeOut" : ""}`}>
-      <SolarSystem className='animate__animated animate__zoomIn animate__slow'>
-        <Sun>
-          <img src="../images/sun.png" className='sun' alt="sun"/>
-        </Sun>
-        {planets.map((planet, id) => <StyledOrbitLink key={id} to={`/planet/${planet.name.toLowerCase()}`} className={`${planet.name.toLowerCase()} ${planet.name.toLowerCase() === isActive.toLowerCase() ? "active" : ""}`} onClick={() => {activeLink(planet.name.toLowerCase()); setActiveButton("overview")}}></StyledOrbitLink>)}
-        {/* <StarCluster></StarCluster> */}
-      </SolarSystem>
-    </SolarSystemContainer>
-  )
-}
